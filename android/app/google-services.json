@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "472419981708",
+    "project_id": "geometry-app-cf890",
+    "storage_bucket": "geometry-app-cf890.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472419981708:android:193cce41dbc8e4f6589ea9",
+        "android_client_info": {
+          "package_name": "com.example.geometry_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0nhzGb5fmmpk2sQLviuptpW7XrXlFwmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
