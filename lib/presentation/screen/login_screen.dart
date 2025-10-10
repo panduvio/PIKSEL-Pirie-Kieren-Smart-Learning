@@ -8,7 +8,6 @@ import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/screen/admin_check_data_screen.dart';
 import 'package:geometry_app/presentation/screen/home_screen.dart';
-import 'package:geometry_app/presentation/screen/leaderboard_screen.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -10,7 +10,7 @@ import 'package:geometry_app/presentation/screen/login_screen.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+// import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -71,9 +71,9 @@ class _ProfilePageState extends State<ProfilePage> {
     ),
   ];
   late SharedPreferences userSp;
-  final Uri _url = Uri.parse(
-    'https://drive.google.com/drive/folders/1ei6Ultc3FiudHnp6pPOaaBLFHLQnsqNP',
-  );
+  // final Uri _url = Uri.parse(
+  //   'https://drive.google.com/drive/folders/1ei6Ultc3FiudHnp6pPOaaBLFHLQnsqNP',
+  // );
 
   @override
   void initState() {
@@ -89,21 +89,21 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  Future<void> _openWebsite() async {
-    final Uri url = Uri.parse('https://guthib.com/');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-      // externalApplication opens in browser, not in the app
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  // Future<void> _openWebsite() async {
+  //   final Uri url = Uri.parse('https://guthib.com/');
+  //   if (await canLaunchUrl(url)) {
+  //     await launchUrl(url, mode: LaunchMode.externalApplication);
+  //     // externalApplication opens in browser, not in the app
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
-  }
+  // Future<void> _launchUrl() async {
+  //   if (!await launchUrl(_url)) {
+  //     throw Exception('Could not launch $_url');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
