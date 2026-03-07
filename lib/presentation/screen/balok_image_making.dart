@@ -27,9 +27,11 @@ class _BalokImageMakingState extends State<BalokImageMaking> {
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers;
     setState(() {
       jawabController = TextEditingController(
-        text: userSp.getString('balokImageMaking'),
+        text: answers.balokImageMaking,
+        // text: userSp.getString('balokImageMaking'),
       );
     });
   }
@@ -153,7 +155,12 @@ class _BalokImageMakingState extends State<BalokImageMaking> {
             alignment: Alignment.centerRight,
             child: CustomNextButton(
               onPressed: () {
-                userSp.setString('balokImageMaking', jawabController.text);
+                final answers = context.read<PageProvider>().answers;
+                context.read<PageProvider>().setUserAnswers(
+                  answers.copyWith(balokImageMaking: jawabController.text),
+                );
+
+                // userSp.setString('balokImageMaking', jawabController.text);
                 Provider.of<PageProvider>(
                   context,
                   listen: false,

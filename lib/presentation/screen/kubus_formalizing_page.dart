@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/screen/kubus_screen.dart';
 import 'package:geometry_app/presentation/widget/custom_material_bubble.dart';
@@ -125,12 +126,17 @@ class _KubusFormalizingPageState extends State<KubusFormalizingPage> {
             child: CustomNextButton(
               onPressed: () {
                 userSp.setString('kubusFormalizing', jawabController.text);
-                if (context.read<PageProvider>().kubusLevel < 2) {
+                if (context.read<PageProvider>().answers.kubusLevel < 2) {
                   Provider.of<PageProvider>(
                     context,
                     listen: false,
                   ).setKubusLevel(2);
-                  userSp.setInt('kubusLevel', 2);
+                  final answer = context.read<PageProvider>().answers;
+                  context.read<PageProvider>().setUserAnswers(
+                    answer.copyWith(kubusLevel: 2),
+                  );
+                  context.read<UserBloc>().add(SaveAnswer(answer, answer.id));
+                  // userSp.setInt('kubusLevel', 2);
                 }
                 Navigator.push(
                   context,

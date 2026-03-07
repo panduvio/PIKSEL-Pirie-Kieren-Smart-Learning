@@ -27,9 +27,11 @@ class _KubusImageMakingPageState extends State<KubusImageMakingPage> {
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers;
     setState(() {
       jawabController = TextEditingController(
-        text: userSp.getString('kubusImageMaking'),
+        text: answers.kubusImageMaking,
+        // text: userSp.getString('kubusImageMaking'),
       );
     });
   }
@@ -188,6 +190,10 @@ class _KubusImageMakingPageState extends State<KubusImageMakingPage> {
               alignment: Alignment.centerRight,
               child: CustomNextButton(
                 onPressed: () {
+                  final answers = context.read<PageProvider>().answers;
+                  context.read<PageProvider>().setUserAnswers(
+                    answers.copyWith(kubusImageMaking: jawabController.text),
+                  );
                   userSp.setString('kubusImageMaking', jawabController.text);
                   Provider.of<PageProvider>(
                     context,

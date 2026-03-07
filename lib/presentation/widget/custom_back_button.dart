@@ -14,7 +14,7 @@ class CustomBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (context.read<PageProvider>().isPretest) {
+        if (context.read<PageProvider>().answers.isPretest) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => LoginScreen()),

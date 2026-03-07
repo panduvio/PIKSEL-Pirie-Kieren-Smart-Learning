@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/screen/balok_screen.dart';
 import 'package:geometry_app/presentation/widget/custom_code_popup.dart';
@@ -79,12 +80,16 @@ class _BalokInventisingPageState extends State<BalokInventisingPage> {
                     );
                   } else if (isAnswered) {
                     isAnswered == false;
-                    if (context.read<PageProvider>().balokLevel < 3) {
+                    if (context.read<PageProvider>().answers.balokLevel < 3) {
                       Provider.of<PageProvider>(
                         context,
                         listen: false,
                       ).setBalokLevel(3);
-                      userSp.setInt('balokLevel', 3);
+                      final answer = context.read<PageProvider>().answers;
+                      context.read<UserBloc>().add(
+                        SaveAnswer(answer.copyWith(balokLevel: 3), answer.id),
+                      );
+                      // userSp.setInt('balokLevel', 3);
                     }
                     Navigator.push(
                       context,

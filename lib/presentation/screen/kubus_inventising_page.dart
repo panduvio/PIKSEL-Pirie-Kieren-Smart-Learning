@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/screen/kubus_screen.dart';
 import 'package:geometry_app/presentation/widget/custom_code_popup.dart';
@@ -81,12 +82,19 @@ class _KubusInventisingPageState extends State<KubusInventisingPage> {
                       );
                     } else if (isAnswered) {
                       isAnswered == false;
-                      if (context.read<PageProvider>().kubusLevel < 3) {
+                      if (context.read<PageProvider>().answers.kubusLevel < 3) {
                         Provider.of<PageProvider>(
                           context,
                           listen: false,
                         ).setKubusLevel(3);
-                        userSp.setInt('kubusLevel', 3);
+                        final answer = context.read<PageProvider>().answers;
+                        context.read<UserBloc>().add(
+                          SaveAnswer(answer.copyWith(kubusLevel: 3), answer.id),
+                        );
+                        context.read<PageProvider>().setUserAnswers(
+                          answer.copyWith(kubusLevel: 3),
+                        );
+                        // userSp.setInt('kubusLevel', 3);
                       }
                       Navigator.push(
                         context,

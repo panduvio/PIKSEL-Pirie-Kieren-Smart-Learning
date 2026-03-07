@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initial() async {
     userSp = await SharedPreferences.getInstance();
     setState(() {
-      username = userSp.getString('username')!;
+      username = userSp.getString('username') ?? '';
     });
   }
 

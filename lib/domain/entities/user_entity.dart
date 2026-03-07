@@ -78,25 +78,6 @@ class UserEntity {
     };
   }
 
-  // UserEntity.fromMap(Map<String, dynamic> map) {
-  //   username = map['username'];
-  //   classCode = map['classCode'];
-  //   preTest1 = map['preTest1'];
-  //   preTest2 = map['preTest2'];
-  //   preTest3 = map['preTest3'];
-  //   preTest4 = map['preTest4'];
-  //   preTest5 = map['preTest5'];
-  //   preTest6 = map['preTest6'];
-  //   postTest1 = map['postTest1'];
-  //   postTest2 = map['postTest2'];
-  //   postTest3 = map['postTest3'];
-  //   postTest4 = map['postTest4'];
-  //   postTest5 = map['postTest5'];
-  //   postTest6 = map['postTest6'];
-  //   preTestScore = map['preTestScore'];
-  //   postTestScore = map['postTestScore'];
-  // }
-
   factory UserEntity.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return UserEntity(
@@ -123,6 +104,58 @@ class UserEntity {
       postTest6: data['postTest6'] ?? '',
       leaderboardScore: (data['leaderboardScore'] ?? 0),
       challengeScore: (data['challengeScore'] ?? 0),
+    );
+  }
+
+  UserEntity copyWith({
+    String? id,
+    String? username,
+    String? classCode,
+    String? evaluasiKubus1,
+    String? evaluasiKubus2,
+    String? evaluasiKubus3,
+    String? evaluasiBalok1,
+    String? evaluasiBalok2,
+    String? evaluasiBalok3,
+    String? preTest1,
+    String? preTest2,
+    String? preTest3,
+    String? preTest4,
+    String? preTest5,
+    String? preTest6,
+    String? postTest1,
+    String? postTest2,
+    String? postTest3,
+    String? postTest4,
+    String? postTest5,
+    String? postTest6,
+    double? leaderboardScore,
+    double? challengeScore,
+  }) {
+    return UserEntity(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      classCode: classCode ?? this.classCode,
+      evaluasiKubus1: evaluasiKubus1 ?? this.evaluasiKubus1,
+      evaluasiKubus2: evaluasiKubus2 ?? this.evaluasiKubus2,
+      evaluasiKubus3: evaluasiKubus3 ?? this.evaluasiKubus3,
+      evaluasiBalok1: evaluasiBalok1 ?? this.evaluasiBalok1,
+      evaluasiBalok2: evaluasiBalok2 ?? this.evaluasiBalok2,
+      evaluasiBalok3: evaluasiBalok3 ?? this.evaluasiBalok3,
+      preTest1: preTest1 ?? this.preTest1,
+      preTest2: preTest2 ?? this.preTest2,
+      preTest3: preTest3 ?? this.preTest3,
+      preTest4: preTest4 ?? this.preTest4,
+      preTest5: preTest5 ?? this.preTest5,
+      preTest6: preTest6 ?? this.preTest6,
+      postTest1: postTest1 ?? this.postTest1,
+      postTest2: postTest2 ?? this.postTest2,
+      postTest3: postTest3 ?? this.postTest3,
+      postTest4: postTest4 ?? this.postTest4,
+      postTest5: postTest5 ?? this.postTest5,
+      postTest6: postTest6 ?? this.postTest6,
+      leaderboardScore: leaderboardScore ?? this.leaderboardScore,
+      challengeScore: challengeScore ?? this.challengeScore,
     );
   }
 }

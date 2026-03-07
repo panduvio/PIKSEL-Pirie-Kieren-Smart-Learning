@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/screen/balok_screen.dart';
 import 'package:geometry_app/presentation/widget/custom_material_bubble.dart';
@@ -194,9 +195,13 @@ class _BalokInvestisingPageState extends State<BalokInvestisingPage> {
                       'balokInvestising3',
                       jawabController3.text,
                     );
-                    if (context.read<PageProvider>().balokLevel < 2) {
+                    if (context.read<PageProvider>().answers.balokLevel < 2) {
                       context.read<PageProvider>().setBalokLevel(2);
-                      userSp.setInt('balokLevel', 2);
+                      final answer = context.read<PageProvider>().answers;
+                      context.read<UserBloc>().add(
+                        SaveAnswer(answer.copyWith(balokLevel: 2), answer.id),
+                      );
+                      // userSp.setInt('balokLevel', 2);
                     }
                     Navigator.push(
                       context,

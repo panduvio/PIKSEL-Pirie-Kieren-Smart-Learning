@@ -246,7 +246,16 @@ class _BalokEvaluasiPageState extends State<BalokEvaluasiPage> {
                                           context,
                                           listen: false,
                                         ).setUserLevel(3);
-                                        userSp.setInt('userLevel', 3);
+                                        final answer = context
+                                            .read<PageProvider>()
+                                            .answers;
+                                        context.read<UserBloc>().add(
+                                          SaveAnswer(
+                                            answer.copyWith(userLevel: 3),
+                                            answer.id,
+                                          ),
+                                        );
+                                        // userSp.setInt('userLevel', 3);
                                         Navigator.pop(context);
                                         context
                                             .read<PageProvider>()

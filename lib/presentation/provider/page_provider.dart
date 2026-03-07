@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geometry_app/domain/entities/answer_entity.dart';
 import 'package:geometry_app/domain/entities/user_entity.dart';
 
 class PageProvider extends ChangeNotifier {
@@ -11,6 +12,7 @@ class PageProvider extends ChangeNotifier {
   int _balokLevel = 1;
   String _currentAnswer = '';
   UserEntity _user = UserEntity(username: '');
+  AnswerEntity _answers = AnswerEntity();
 
   bool get isPretest => _isPretest;
   bool get isChoiceChosen => _isChoiceChosen;
@@ -21,6 +23,7 @@ class PageProvider extends ChangeNotifier {
   int get balokLevel => _balokLevel;
   String get currentAnswer => _currentAnswer;
   UserEntity get user => _user;
+  AnswerEntity get answers => _answers;
 
   void setChoice(bool status) {
     _isChoiceChosen = status;
@@ -47,13 +50,18 @@ class PageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setUserAnswers(AnswerEntity answers) {
+    _answers = answers;
+    notifyListeners();
+  }
+
   void setUserLevel(int level) {
     _userLevel = level;
     notifyListeners();
   }
 
   void setUserId(String id) {
-    _user.id = id;
+    _user.copyWith(id: id);
     notifyListeners();
   }
 
