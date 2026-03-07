@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/widget/custom_material_bubble.dart';
 import 'package:geometry_app/presentation/widget/custom_next_button.dart';
@@ -50,9 +51,10 @@ class _BalokImageHavingAndPropertyNoticingState
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers.toMap();
     setState(() {
       for (int i = 0; i < 20; i++) {
-        jawabControllerList[i].text = '${userSp.getString('balokINPH$i')}';
+        jawabControllerList[i].text = '${answers['balokIHPN${i + 1}']}';
       }
     });
   }
@@ -136,13 +138,26 @@ class _BalokImageHavingAndPropertyNoticingState
             alignment: Alignment.centerRight,
             child: CustomNextButton(
               onPressed: () {
+                final pageProvider = context.read<PageProvider>();
+
+                Map<String, dynamic> newAnswersMap = {};
                 for (int i = 0; i < 20; i++) {
-                  userSp.setString('balokIHPN$i', jawabControllerList[i].text);
+                  String key = 'balokIHPN${i + 1}';
+                  String val = jawabControllerList[i].text;
+
+                  newAnswersMap[key] = val;
+                  userSp.setString(key, val);
                 }
-                Provider.of<PageProvider>(
-                  context,
-                  listen: false,
-                ).setPageIndex(13);
+
+                final updatedEntity = pageProvider.answers.copyWithMap(
+                  newAnswersMap,
+                );
+                print('Map: ${updatedEntity.toMap()}');
+                pageProvider.setUserAnswers(updatedEntity);
+                context.read<UserBloc>().add(
+                  SaveAnswer(updatedEntity, updatedEntity.id),
+                );
+                pageProvider.setPageIndex(13);
               },
             ),
           ),

@@ -7,7 +7,7 @@ import 'package:geometry_app/domain/entities/user_entity.dart';
 
 class UserFirestore {
   final _db = FirebaseFirestore.instance;
-  final String userTable = 'mockUsers'; // users
+  final String userTable = 'users'; // users
   final String answerTable = 'answers'; // answers
 
   getAllUser() async {

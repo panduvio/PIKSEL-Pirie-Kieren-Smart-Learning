@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/widget/custom_material_bubble.dart';
 import 'package:geometry_app/presentation/widget/custom_next_button.dart';
@@ -191,10 +192,15 @@ class _KubusImageMakingPageState extends State<KubusImageMakingPage> {
               child: CustomNextButton(
                 onPressed: () {
                   final answers = context.read<PageProvider>().answers;
-                  context.read<PageProvider>().setUserAnswers(
-                    answers.copyWith(kubusImageMaking: jawabController.text),
+                  final fixedAnswer = answers.copyWith(
+                    kubusImageMaking: jawabController.text,
                   );
-                  userSp.setString('kubusImageMaking', jawabController.text);
+                  context.read<PageProvider>().setUserAnswers(fixedAnswer);
+                  context.read<UserBloc>().add(
+                    SaveAnswer(fixedAnswer, answers.id),
+                  );
+
+                  // userSp.setString('kubusImageMaking', jawabController.text);
                   Provider.of<PageProvider>(
                     context,
                     listen: false,

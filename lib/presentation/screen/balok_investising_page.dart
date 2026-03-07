@@ -85,16 +85,20 @@ class _BalokInvestisingPageState extends State<BalokInvestisingPage> {
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers;
     setState(() {
-      jawabController1 = TextEditingController(
-        text: userSp.getString('balokInvestising1'),
-      );
-      jawabController2 = TextEditingController(
-        text: userSp.getString('balokInvestising2'),
-      );
-      jawabController3 = TextEditingController(
-        text: userSp.getString('balokInvestising3'),
-      );
+      jawabController1 = TextEditingController(text: answers.balokInvestising1);
+      jawabController2 = TextEditingController(text: answers.balokInvestising2);
+      jawabController3 = TextEditingController(text: answers.balokInvestising3);
+      // jawabController1 = TextEditingController(
+      //   text: userSp.getString('balokInvestising1'),
+      // );
+      // jawabController2 = TextEditingController(
+      //   text: userSp.getString('balokInvestising2'),
+      // );
+      // jawabController3 = TextEditingController(
+      //   text: userSp.getString('balokInvestising3'),
+      // );
     });
   }
 
@@ -179,27 +183,46 @@ class _BalokInvestisingPageState extends State<BalokInvestisingPage> {
             child: CustomNextButton(
               onPressed: () {
                 setState(() {
+                  final answers = context.read<PageProvider>().answers;
                   if (questionNumber < soalList.length) {
-                    userSp.setString(
-                      'balokInvestising1',
-                      jawabController1.text,
+                    final fixedAnswer = answers.copyWith(
+                      balokInvestising1: jawabController1.text,
+                      balokInvestising2: jawabController2.text,
                     );
-                    userSp.setString(
-                      'balokInvestising2',
-                      jawabController2.text,
+                    context.read<PageProvider>().setUserAnswers(fixedAnswer);
+                    context.read<UserBloc>().add(
+                      SaveAnswer(fixedAnswer, answers.id),
                     );
+                    // userSp.setString(
+                    //   'balokInvestising1',
+                    //   jawabController1.text,
+                    // );
+                    // userSp.setString(
+                    //   'balokInvestising2',
+                    //   jawabController2.text,
+                    // );
 
                     questionNumber = questionNumber + 1;
                   } else {
-                    userSp.setString(
-                      'balokInvestising3',
-                      jawabController3.text,
+                    final fixedAnswer = answers.copyWith(
+                      balokInvestising3: jawabController3.text,
                     );
+                    context.read<PageProvider>().setUserAnswers(fixedAnswer);
+                    context.read<UserBloc>().add(
+                      SaveAnswer(fixedAnswer, answers.id),
+                    );
+                    // userSp.setString(
+                    //   'balokInvestising3',
+                    //   jawabController3.text,
+                    // );
                     if (context.read<PageProvider>().answers.balokLevel < 2) {
                       context.read<PageProvider>().setBalokLevel(2);
                       final answer = context.read<PageProvider>().answers;
                       context.read<UserBloc>().add(
                         SaveAnswer(answer.copyWith(balokLevel: 2), answer.id),
+                      );
+                      context.read<PageProvider>().setUserAnswers(
+                        answer.copyWith(balokLevel: 2),
                       );
                       // userSp.setInt('balokLevel', 2);
                     }

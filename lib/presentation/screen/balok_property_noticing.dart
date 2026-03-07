@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/widget/custom_material_bubble.dart';
 import 'package:geometry_app/presentation/widget/custom_next_button.dart';
@@ -27,9 +28,11 @@ class _BalokPropertyNoticingState extends State<BalokPropertyNoticing> {
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers;
     setState(() {
       jawabController = TextEditingController(
-        text: userSp.getString('balokPropertyNoticing'),
+        text: answers.balokPropertyNoticing,
+        // text: userSp.getString('balokPropertyNoticing'),
       );
     });
   }
@@ -125,7 +128,16 @@ class _BalokPropertyNoticingState extends State<BalokPropertyNoticing> {
             alignment: Alignment.centerRight,
             child: CustomNextButton(
               onPressed: () {
-                userSp.setString('balokPropertyNoticing', jawabController.text);
+                final answers = context.read<PageProvider>().answers;
+                final fixedAnswer = answers.copyWith(
+                  balokPropertyNoticing: jawabController.text,
+                );
+                context.read<PageProvider>().setUserAnswers(fixedAnswer);
+                context.read<UserBloc>().add(
+                  SaveAnswer(fixedAnswer, answers.id),
+                );
+
+                // userSp.setString('balokPropertyNoticing', jawabController.text);
                 Provider.of<PageProvider>(
                   context,
                   listen: false,

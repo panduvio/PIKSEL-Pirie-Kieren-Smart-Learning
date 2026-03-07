@@ -42,7 +42,7 @@ class AnswerEntity {
     this.userLevel = 1,
     this.kubusLevel = 1,
     this.balokLevel = 1,
-    this.isPretest = false,
+    this.isPretest = true,
     this.id = '',
     this.balokFormalizing = '',
     this.kubusFormalizing = '',
@@ -157,6 +157,53 @@ class AnswerEntity {
       balokIHPN18: data['balokIHPN18'] ?? '',
       balokIHPN19: data['balokIHPN19'] ?? '',
       balokIHPN20: data['balokIHPN20'] ?? '',
+    );
+  }
+
+  AnswerEntity copyWithMap(Map<String, dynamic> map) {
+    final currentMap = toMap();
+    currentMap.addAll(map);
+    return AnswerEntity.fromMap(currentMap);
+  }
+
+  factory AnswerEntity.fromMap(Map<String, dynamic> map) {
+    return AnswerEntity(
+      userLevel: map['userLevel'] ?? 1,
+      kubusLevel: map['kubusLevel'] ?? 1,
+      balokLevel: map['balokLevel'] ?? 1,
+      isPretest: map['isPretest'] ?? true,
+      id: map['id'] ?? '',
+      kubusImageMaking: map['kubusImageMaking'] ?? '',
+      balokImageMaking: map['balokImageMaking'] ?? '',
+      kubusImageHaving: map['kubusImageHaving'] ?? '',
+      balokImageHaving: map['balokImageHaving'] ?? '',
+      kubusPropertyNoticing: map['kubusPropertyNoticing'] ?? '',
+      balokPropertyNoticing: map['balokPropertyNoticing'] ?? '',
+      kubusFormalizing: map['kubusFormalizing'] ?? '',
+      balokFormalizing: map['balokFormalizing'] ?? '',
+      balokInvestising1: map['balokInvestising1'] ?? '',
+      balokInvestising2: map['balokInvestising2'] ?? '',
+      balokInvestising3: map['balokInvestising3'] ?? '',
+      balokIHPN1: map['balokIHPN1'] ?? '',
+      balokIHPN2: map['balokIHPN2'] ?? '',
+      balokIHPN3: map['balokIHPN3'] ?? '',
+      balokIHPN4: map['balokIHPN4'] ?? '',
+      balokIHPN5: map['balokIHPN5'] ?? '',
+      balokIHPN6: map['balokIHPN6'] ?? '',
+      balokIHPN7: map['balokIHPN7'] ?? '',
+      balokIHPN8: map['balokIHPN8'] ?? '',
+      balokIHPN9: map['balokIHPN9'] ?? '',
+      balokIHPN10: map['balokIHPN10'] ?? '',
+      balokIHPN11: map['balokIHPN11'] ?? '',
+      balokIHPN12: map['balokIHPN12'] ?? '',
+      balokIHPN13: map['balokIHPN13'] ?? '',
+      balokIHPN14: map['balokIHPN14'] ?? '',
+      balokIHPN15: map['balokIHPN15'] ?? '',
+      balokIHPN16: map['balokIHPN16'] ?? '',
+      balokIHPN17: map['balokIHPN17'] ?? '',
+      balokIHPN18: map['balokIHPN18'] ?? '',
+      balokIHPN19: map['balokIHPN19'] ?? '',
+      balokIHPN20: map['balokIHPN20'] ?? '',
     );
   }
 

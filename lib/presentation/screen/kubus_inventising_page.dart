@@ -94,6 +94,9 @@ class _KubusInventisingPageState extends State<KubusInventisingPage> {
                         context.read<PageProvider>().setUserAnswers(
                           answer.copyWith(kubusLevel: 3),
                         );
+                        context.read<PageProvider>().setUserAnswers(
+                          answer.copyWith(kubusLevel: 3),
+                        );
                         // userSp.setInt('kubusLevel', 3);
                       }
                       Navigator.push(

@@ -29,9 +29,11 @@ class _KubusFormalizingPageState extends State<KubusFormalizingPage> {
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers;
     setState(() {
       jawabController = TextEditingController(
-        text: userSp.getString('kubusFormalizing'),
+        text: answers.kubusFormalizing,
+        // text: userSp.getString('kubusFormalizing'),
       );
     });
   }
@@ -125,7 +127,16 @@ class _KubusFormalizingPageState extends State<KubusFormalizingPage> {
             alignment: Alignment.centerRight,
             child: CustomNextButton(
               onPressed: () {
-                userSp.setString('kubusFormalizing', jawabController.text);
+                final answers = context.read<PageProvider>().answers;
+                final fixedAnswer = answers.copyWith(
+                  kubusFormalizing: jawabController.text,
+                );
+                context.read<PageProvider>().setUserAnswers(fixedAnswer);
+                context.read<UserBloc>().add(
+                  SaveAnswer(fixedAnswer, answers.id),
+                );
+
+                // userSp.setString('kubusFormalizing', jawabController.text);
                 if (context.read<PageProvider>().answers.kubusLevel < 2) {
                   Provider.of<PageProvider>(
                     context,
@@ -136,6 +147,9 @@ class _KubusFormalizingPageState extends State<KubusFormalizingPage> {
                     answer.copyWith(kubusLevel: 2),
                   );
                   context.read<UserBloc>().add(SaveAnswer(answer, answer.id));
+                  context.read<PageProvider>().setUserAnswers(
+                    answer.copyWith(kubusLevel: 2),
+                  );
                   // userSp.setInt('kubusLevel', 2);
                 }
                 Navigator.push(

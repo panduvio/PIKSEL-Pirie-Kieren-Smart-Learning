@@ -89,6 +89,9 @@ class _BalokInventisingPageState extends State<BalokInventisingPage> {
                       context.read<UserBloc>().add(
                         SaveAnswer(answer.copyWith(balokLevel: 3), answer.id),
                       );
+                      context.read<PageProvider>().setUserAnswers(
+                        answer.copyWith(balokLevel: 3),
+                      );
                       // userSp.setInt('balokLevel', 3);
                     }
                     Navigator.push(

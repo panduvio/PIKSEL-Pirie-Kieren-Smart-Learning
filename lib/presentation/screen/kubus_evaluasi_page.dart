@@ -81,6 +81,9 @@ class _KubusEvaluasiPageState extends State<KubusEvaluasiPage> {
                     context.read<UserBloc>().add(
                       SaveAnswer(_answer.copyWith(userLevel: 2), _answer.id),
                     );
+                    context.read<PageProvider>().setUserAnswers(
+                      _answer.copyWith(userLevel: 2),
+                    );
                     // userSp.setInt('userLevel', 2);
                     Navigator.pushReplacement(
                       context,

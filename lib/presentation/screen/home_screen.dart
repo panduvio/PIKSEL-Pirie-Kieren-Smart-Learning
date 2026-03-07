@@ -178,6 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (value) {
+                print(userLevel);
                 if (context.read<PageProvider>().answers.isPretest == false) {
                   setState(() {
                     currentBotomNavIndex = value;

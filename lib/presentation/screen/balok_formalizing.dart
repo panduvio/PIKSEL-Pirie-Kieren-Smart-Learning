@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geometry_app/constant/app_color.dart';
 import 'package:geometry_app/constant/app_text_style.dart';
+import 'package:geometry_app/presentation/provider/bloc/user_bloc.dart';
 import 'package:geometry_app/presentation/provider/page_provider.dart';
 import 'package:geometry_app/presentation/widget/custom_material_bubble.dart';
 import 'package:geometry_app/presentation/widget/custom_next_button.dart';
@@ -27,9 +28,11 @@ class _BalokFormalizingState extends State<BalokFormalizing> {
 
   void initial() async {
     userSp = await SharedPreferences.getInstance();
+    final answers = context.read<PageProvider>().answers;
     setState(() {
       jawabController = TextEditingController(
-        text: userSp.getString('balokFormalizing'),
+        text: answers.balokPropertyNoticing,
+        // text: userSp.getString('balokFormalizing'),
       );
     });
   }
@@ -100,7 +103,15 @@ class _BalokFormalizingState extends State<BalokFormalizing> {
             alignment: Alignment.centerRight,
             child: CustomNextButton(
               onPressed: () {
-                userSp.setString('balokFormalizing', jawabController.text);
+                final answers = context.read<PageProvider>().answers;
+                final fixedAnswer = answers.copyWith(
+                  balokFormalizing: jawabController.text,
+                );
+                context.read<PageProvider>().setUserAnswers(fixedAnswer);
+                context.read<UserBloc>().add(
+                  SaveAnswer(fixedAnswer, answers.id),
+                );
+                // userSp.setString('balokFormalizing', jawabController.text);
                 Provider.of<PageProvider>(
                   context,
                   listen: false,
