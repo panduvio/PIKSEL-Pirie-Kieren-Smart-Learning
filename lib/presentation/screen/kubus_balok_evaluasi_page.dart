@@ -146,6 +146,16 @@ class _KubusBalokEvaluasiPageState extends State<KubusBalokEvaluasiPage> {
                               .read<PageProvider>()
                               .currentAnswer;
                           context.read<PageProvider>().setTest(false);
+                          final answer = context.read<PageProvider>().answers;
+                          context.read<UserBloc>().add(
+                            SaveAnswer(
+                              answer.copyWith(isPretest: false),
+                              answer.id,
+                            ),
+                          );
+                          context.read<PageProvider>().setUserAnswers(
+                            answer.copyWith(isPretest: false),
+                          );
                           userSp.setBool('isPretest', false);
 
                           context.read<UserBloc>().add(
